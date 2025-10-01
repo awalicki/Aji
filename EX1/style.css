@@ -4,37 +4,43 @@ html, body {
     height: 100%;
 }
 
+#heli{
+    position: relative;
+    bottom: 55%;
+    left: 30%;
+}
+
 #plozaPlaska{
-    position: absolute; 
-    top: 600px; 
-    left: 500px;
+    position: relative;
+    top: 260px;
+    left: 70px;
     background-color: black;
     width: 300px;
     height: 7px;
 }
 
 #plozaPionLewa{
-    position: absolute; 
-    top: 560px; 
-    left: 550px;
+    position: relative;
+    top: 220px;
+    left: 140px;
     background-color: black;
     width: 7px;
     height: 40px;
 }
 
-#plozaPionPrawa{
-    position: absolute; 
-    top: 560px; 
-    left: 750px;
-    background-color: black;
+#plozaPionPrawa {
+    position: absolute;
+    top: 220px;
+    left: 310px;
     width: 7px;
     height: 40px;
+    background: black;
 }
 
 #plozaZakrLewa{
     position: absolute;
-    top: 542px; 
-    left: 485px;
+    top: 202px;
+    left: 55px;
     /* Wygenerował chat*/
     width:40px;
     height:90px;
@@ -54,8 +60,8 @@ html, body {
 
 #plozaZakrPrawa{
     position: absolute;
-    top: 542px; 
-    left: 769px;
+    top: 202px;
+    left: 339px;
     /* Wygenerował chat*/
     width:40px;
     height:90px;
@@ -73,9 +79,7 @@ html, body {
 
 
 #body1 {
-    position: absolute;
-    top: 375px;
-    left: 430px;
+    position: relative;
     width: 450px;
     height: 200px;
     background: yellow;
@@ -91,19 +95,61 @@ html, body {
 #niebo {
     background-color: lightblue;
     width: 100%;
-    height: 538px;
+    height: 55%;
 }
 
 #lad {
     background-color: green;
     width: 100%;
-    height: 200px;
+    height: 45%;
+}
+
+#slonce{
+    position: absolute;
+    top: 2vh;
+    left: 2vh;
+    border-radius: 100%;
+    background-color: rgb(255, 221, 0);
+    height: 30vh;
+    width: 30vh;
+}
+.chmura {
+    position: absolute;
+    top: 2vh;
+    left: 2vh;
+    width: 30vh;
+    height: 13vh;
+    background: white;
+    border-radius: 100px;
+    margin: 11vh 0 0 11vh;
+}
+
+.chmura:after, .chmura:before {
+    content: '';
+    position: absolute;
+    background: white;
+}
+
+.chmura:after {
+    width: 12vh;
+    height: 12vh;
+    top: -6vh;
+    left: 5vh;
+    border-radius: 100px;
+}
+
+.chmura:before {
+    width: 17vh;
+    height: 17vh;
+    top: -9vh;
+    right: 2vh;
+    border-radius: 200px;
 }
 
 #kabina {
     position: absolute;
-    top: 375px;
-    left: 430px;
+    top: 50px;
+    left: 7px;
     width: 450px;
     height: 200px;
     background: gray;
@@ -119,8 +165,8 @@ html, body {
 
 #okno {
     position: absolute;
-    top: 390px;
-    left: 585px;
+    top: 65px;
+    left: 180px;
     width: 80px;
     height: 105px;
     border-radius: 20%;
@@ -129,8 +175,8 @@ html, body {
 
 #ogon {
     position: absolute;
-    top: 420px;
-    left: 740px;
+    top: 110px;
+    left: 360px;
     background-color: yellow;
     width: 500px;
     height: 70px;
@@ -148,8 +194,8 @@ html, body {
 
 #ogonKoniecGora{
     position: absolute;
-    top:310px;
-    left:1160px;
+    top:0px;
+    left:830px;
     background-color: yellow;
 
     border-radius: 30%;
@@ -166,8 +212,8 @@ html, body {
 
 #ogonKoniecDol{
     position: absolute;
-    top:440px;
-    left:1160px;
+    top:155px;
+    left:830px;
     background-color: yellow;
 
     border-radius: 30%;
@@ -184,22 +230,12 @@ html, body {
 
 #tloSmigla {
     position: absolute;
-    top: 420px;
-    left:1174px;
+    top: 125px;
+    left: 840px;
     height: 70px;
     width: 70px;
     border-radius: 50%;
-    background-color: lightblue;
-}
-
-#tloSmigla {
-    position: absolute;
-    top: 420px;
-    left: 1174px;
-    height: 70px;
-    width: 70px;
-    border-radius: 50%;
-    background-color: lightblue;
+    background-color: green;
 
     display: flex;
     justify-content: center;
@@ -225,30 +261,49 @@ html, body {
 
 #podstawaSmigla {
     position: absolute;
-    top: 306px;
-    left: 650px;
+    bottom: 190px;
+    left: 210px;
     background-color: black;
-    width: 20px;
+    width: 15px;
+    height: 50px;
+}
+
+#lopata {
+    position: absolute;
+    top: 0px;
+    left: -129px;
+    background-color: black;
+    width: 700px;
+    height: 13px;
+}
+
+
+#krzyz {
+    position: absolute;
+    top: 90px;
+    left: 300px;
+    width: 80px;
     height: 80px;
+    border-radius: 50%;
+    background: white;
+    display: grid;
+    place-items: center;
 }
 
-#lopataLewa {
+#krzyz::before,
+#krzyz::after {
+    content: "";
     position: absolute;
-    top: 306px;
-    left: 251px;
-    background-color: black;
-    width: 400px;
-    height: 25px;
-
-
+    background: #c8102e;
+    border-radius: 2px;
 }
 
+#krzyz::before {
+    width: 18%;
+    height: 56%;
+}
 
-#lopataPrawa {
-    position: absolute;
-    top: 306px;
-    left: 660px;
-    background-color: black;
-    width: 400px;
-    height: 25px;
+#krzyz::after {
+    height: 18%;
+    width: 56%;
 }

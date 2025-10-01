@@ -99,3 +99,87 @@ html, body {
     width: 100%;
     height: 200px;
 }
+
+#kabina {
+    position: absolute;
+    top: 375px;
+    left: 430px;
+    width: 450px;
+    height: 200px;
+    background: gray;
+    border-radius: 50%;
+
+    /* Połączone maski: pion + poziom */
+    mask-image: 
+        linear-gradient(to bottom, transparent 5%, black 5% 60%, transparent 60%),
+        linear-gradient(to right, transparent 0%, black 0% 30%, transparent 20%);
+    mask-composite: intersect; /* tylko obszary wspólne obu gradientów będą widoczne */
+    mask-mode: alpha;
+}
+
+#okno {
+    position: absolute;
+    top: 390px;
+    left: 585px;
+    width: 80px;
+    height: 105px;
+    border-radius: 20%;
+    background-color: gray  ;
+}
+
+#ogon {
+    position: absolute;
+    top: 420px;
+    left: 740px;
+    background-color: yellow;
+    width: 500px;
+    height: 70px;
+    rotate: 10deg;
+    border-radius: 20%;
+
+    /* clip-path trapez, który zwęża się w prawo */
+    clip-path: polygon(
+        0% 0%,        /* lewy górny */
+        0% 100%,      /* lewy dolny */
+        100% 33%,     /* prawy dolny = 1/3 wysokości */
+        100% 0%       /* prawy górny */
+    );
+}
+
+#ogonKoniecGora{
+    position: absolute;
+    top:310px;
+    left:1160px;
+    background-color: yellow;
+
+    border-radius: 30%;
+    height: 170px;
+    width: 90px;
+    clip-path: polygon(
+        50% 0%,        /* lewy górny */
+        0% 100%,      /* lewy dolny */
+        100% 100%,     /* prawy dolny = 1/3 wysokości */
+        100% 0%       /* prawy górny */
+    );
+}
+
+
+#ogonKoniecDol{
+    position: absolute;
+    top:440px;
+    left:1160px;
+    background-color: yellow;
+
+    border-radius: 30%;
+    height: 130px;
+    width: 90px;
+    clip-path: polygon(
+        50% 0%,        /* lewy górny */
+        0% 100%,      /* lewy dolny */
+        100% 100%,     /* prawy dolny = 1/3 wysokości */
+        100% 0%       /* prawy górny */
+    );
+    transform: scaleY(-1);
+}
+
+

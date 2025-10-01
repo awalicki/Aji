@@ -1,3 +1,9 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 #plozaPlaska{
     position: absolute; 
     top: 600px; 
@@ -35,13 +41,7 @@
     border-radius:70%;
       /* conic-gradient tworzy "wycinek" koła */
     background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
-      /* maskujemy środek, żeby zostać z obręczą */
-    /* maska: grubość łuku ok. 6px */
-    -webkit-mask: radial-gradient(
-        farthest-side,
-        transparent calc(100% - 6px),
-        black calc(100% - 6px)
-    );
+
     mask: radial-gradient(
         farthest-side,
         transparent calc(100% - 6px),
@@ -62,17 +62,40 @@
     border-radius:70%;
       /* conic-gradient tworzy "wycinek" koła */
     background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
-      /* maskujemy środek, żeby zostać z obręczą */
-    /* maska: grubość łuku ok. 6px */
-    -webkit-mask: radial-gradient(
-        farthest-side,
-        transparent calc(100% - 6px),
-        black calc(100% - 6px)
-    );
+
     mask: radial-gradient(
         farthest-side,
         transparent calc(100% - 6px),
         black calc(100% - 6px)
     );
     rotate: 90deg;
+}
+
+
+#body1 {
+    position: absolute;
+    top: 375px;
+    left: 430px;
+    width: 450px;
+    height: 200px;
+    background: yellow;
+    border-radius: 50%;
+    mask: linear-gradient(
+        to bottom,
+        transparent 5%, 
+        black 5% 93%, 
+        transparent 93%);
+
+}
+
+#niebo {
+    background-color: lightblue;
+    width: 100%;
+    height: 538px;
+}
+
+#lad {
+    background-color: green;
+    width: 100%;
+    height: 200px;
 }

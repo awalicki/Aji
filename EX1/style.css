@@ -182,4 +182,73 @@ html, body {
     transform: scaleY(-1);
 }
 
+#tloSmigla {
+    position: absolute;
+    top: 420px;
+    left:1174px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color: lightblue;
+}
 
+#tloSmigla {
+    position: absolute;
+    top: 420px;
+    left: 1174px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color: lightblue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blad {
+    position: absolute;
+    width: 8px;       /* szerokość śmigła */
+    height: 35px;     /* długość śmigła */
+    background-color: black;
+    top: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+}
+
+/* Ustawienie kątów 5 śmigieł równomiernie co 72° (360/5) */
+.blad:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg); }
+.blad:nth-child(2) { transform: translate(-50%, -100%) rotate(72deg); }
+.blad:nth-child(3) { transform: translate(-50%, -100%) rotate(144deg); }
+.blad:nth-child(4) { transform: translate(-50%, -100%) rotate(216deg); }
+.blad:nth-child(5) { transform: translate(-50%, -100%) rotate(288deg); }
+
+#podstawaSmigla {
+    position: absolute;
+    top: 306px;
+    left: 650px;
+    background-color: black;
+    width: 20px;
+    height: 80px;
+}
+
+#lopataLewa {
+    position: absolute;
+    top: 306px;
+    left: 251px;
+    background-color: black;
+    width: 400px;
+    height: 25px;
+
+
+}
+
+
+#lopataPrawa {
+    position: absolute;
+    top: 306px;
+    left: 660px;
+    background-color: black;
+    width: 400px;
+    height: 25px;
+}

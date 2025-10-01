@@ -1,0 +1,78 @@
+#plozaPlaska{
+    position: absolute; 
+    top: 600px; 
+    left: 500px;
+    background-color: black;
+    width: 300px;
+    height: 7px;
+}
+
+#plozaPionLewa{
+    position: absolute; 
+    top: 560px; 
+    left: 550px;
+    background-color: black;
+    width: 7px;
+    height: 40px;
+}
+
+#plozaPionPrawa{
+    position: absolute; 
+    top: 560px; 
+    left: 750px;
+    background-color: black;
+    width: 7px;
+    height: 40px;
+}
+
+#plozaZakrLewa{
+    position: absolute;
+    top: 542px; 
+    left: 485px;
+    /* Wygenerował chat*/
+    width:40px;
+    height:90px;
+    border-radius:70%;
+      /* conic-gradient tworzy "wycinek" koła */
+    background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
+      /* maskujemy środek, żeby zostać z obręczą */
+    /* maska: grubość łuku ok. 6px */
+    -webkit-mask: radial-gradient(
+        farthest-side,
+        transparent calc(100% - 6px),
+        black calc(100% - 6px)
+    );
+    mask: radial-gradient(
+        farthest-side,
+        transparent calc(100% - 6px),
+        black calc(100% - 6px)
+    );
+    rotate: 90deg;
+    transform: scaleY(-1);
+}
+
+
+#plozaZakrPrawa{
+    position: absolute;
+    top: 542px; 
+    left: 769px;
+    /* Wygenerował chat*/
+    width:40px;
+    height:90px;
+    border-radius:70%;
+      /* conic-gradient tworzy "wycinek" koła */
+    background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
+      /* maskujemy środek, żeby zostać z obręczą */
+    /* maska: grubość łuku ok. 6px */
+    -webkit-mask: radial-gradient(
+        farthest-side,
+        transparent calc(100% - 6px),
+        black calc(100% - 6px)
+    );
+    mask: radial-gradient(
+        farthest-side,
+        transparent calc(100% - 6px),
+        black calc(100% - 6px)
+    );
+    rotate: 90deg;
+}

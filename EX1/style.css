@@ -1,4 +1,4 @@
-html, body {
+html,body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -48,10 +48,10 @@ html, body {
       /* conic-gradient tworzy "wycinek" koła */
     background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
 
-    mask: radial-gradient(
-        farthest-side,
-        transparent calc(100% - 6px),
-        black calc(100% - 6px)
+    mask-image: radial-gradient(
+            farthest-side,
+            transparent calc(100% - 6px),
+            black calc(100% - 6px)
     );
     rotate: 90deg;
     transform: scaleY(-1);
@@ -69,7 +69,7 @@ html, body {
       /* conic-gradient tworzy "wycinek" koła */
     background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
 
-    mask: radial-gradient(
+    mask-image: radial-gradient(
         farthest-side,
         transparent calc(100% - 6px),
         black calc(100% - 6px)
@@ -84,7 +84,7 @@ html, body {
     height: 200px;
     background: yellow;
     border-radius: 50%;
-    mask: linear-gradient(
+    mask-image: linear-gradient(
         to bottom,
         transparent 5%, 
         black 5% 93%, 
@@ -112,6 +112,7 @@ html, body {
     background-color: rgb(255, 221, 0);
     height: 30vh;
     width: 30vh;
+    box-shadow: 0 0 50px #FFD700;
 }
 .chmura {
     position: absolute;
@@ -122,6 +123,13 @@ html, body {
     background: white;
     border-radius: 100px;
     margin: 11vh 0 0 11vh;
+    opacity: 0.9;
+    animation: drift 80s linear infinite;
+}
+
+@keyframes drift {
+    from { left: -40vh; }
+    to { left: 110vw; }
 }
 
 .chmura:after, .chmura:before {
@@ -146,7 +154,7 @@ html, body {
     border-radius: 200px;
 }
 
-#kabina {
+#kabina, #kabina_rama {
     position: absolute;
     top: 50px;
     left: 7px;
@@ -163,14 +171,25 @@ html, body {
     mask-mode: alpha;
 }
 
-#okno {
+#kabina_rama{
+    transform: scale(1.02);
+    background-color: black;
+}
+
+
+#okno, #okno_rama {
     position: absolute;
     top: 65px;
     left: 180px;
     width: 80px;
     height: 105px;
     border-radius: 20%;
-    background-color: gray  ;
+    background-color: gray;
+}
+
+#okno_rama{
+    transform: scale(1.06);
+    background-color: black;
 }
 
 #ogon {
@@ -288,22 +307,6 @@ html, body {
     background: white;
     display: grid;
     place-items: center;
-}
-
-#krzyz::before,
-#krzyz::after {
-    content: "";
-    position: absolute;
-    background: #c8102e;
-    border-radius: 2px;
-}
-
-#krzyz::before {
-    width: 18%;
-    height: 56%;
-}
-
-#krzyz::after {
-    height: 18%;
-    width: 56%;
+    background: conic-gradient(#c8102e 90deg, white 90deg 180deg, #c8102e 180deg 270deg, white 270deg);
+    box-shadow: 0 0 5px black;
 }

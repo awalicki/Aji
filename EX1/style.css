@@ -37,59 +37,18 @@ html,body {
     background: black;
 }
 
-#plozaZakrLewa{
-    position: absolute;
-    top: 202px;
-    left: 55px;
-    width:40px;
-    height:90px;
-    border-radius:70%;
-    /* Wygenerował chat*/
-    /* conic-gradient tworzy "wycinek" koła */
-    background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
-
-    mask-image: radial-gradient(
-            farthest-side,
-            transparent calc(100% - 6px),
-            black calc(100% - 6px)
-    );
-    rotate: 90deg;
-    transform: scaleY(-1);
-}
-
-
-#plozaZakrPrawa{
-    position: absolute;
-    top: 202px;
-    left: 339px;
-    width:40px;
-    height:90px;
-    border-radius:70%;
-    /* Wygenerował chat*/
-    /* conic-gradient tworzy "wycinek" koła */
-    background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
-
-    mask-image: radial-gradient(
-        farthest-side,
-        transparent calc(100% - 6px),
-        black calc(100% - 6px)
-    );
-    rotate: 90deg;
-}
-
-
 #body1 {
     position: relative;
     width: 450px;
     height: 200px;
     background: yellow;
     border-radius: 50%;
-    mask-image: linear-gradient(
-        to bottom,
-        transparent 5%, 
-        black 5% 93%, 
-        transparent 93%);
-
+    clip-path: polygon(
+        0% 5%,
+        100% 5%,
+        100% 93%,
+        0% 93%
+    );
 }
 
 #niebo {
@@ -153,7 +112,6 @@ html,body {
     right: 2vh;
     border-radius: 200px;
 }
-
 #kabina, #kabina_rama {
     position: absolute;
     top: 50px;
@@ -161,14 +119,13 @@ html,body {
     width: 450px;
     height: 200px;
     background: gray;
-    border-radius: 50%;
-
-    /* Połączone maski: pion + poziom */
-    mask-image: 
-        linear-gradient(to bottom, transparent 5%, black 5% 60%, transparent 60%),
-        linear-gradient(to right, transparent 0%, black 0% 30%, transparent 20%);
-    mask-composite: intersect; /* tylko obszary wspólne obu gradientów będą widoczne */
-    mask-mode: alpha;
+    border-radius: 50%; 
+    clip-path: polygon(
+        0% 5%,
+        30% 5%,
+        30% 60%,
+        0% 60%
+    );
 }
 
 #kabina_rama{
@@ -201,14 +158,11 @@ html,body {
     height: 70px;
     rotate: 10deg;
     border-radius: 20%;
-
-    /* Wygenerował chat*/
-    /* clip-path trapez, który zwęża się w prawo */
     clip-path: polygon(
-        0% 0%,        /* lewy górny */
-        0% 100%,      /* lewy dolny */
-        100% 33%,     /* prawy dolny = 1/3 wysokości */
-        100% 0%       /* prawy górny */
+        0% 0%,
+        0% 100%,
+        100% 33%,
+        100% 0%
     );
 }
 
@@ -222,10 +176,10 @@ html,body {
     height: 170px;
     width: 90px;
     clip-path: polygon(
-        50% 0%,        /* lewy górny */
-        0% 100%,      /* lewy dolny */
-        100% 100%,     /* prawy dolny = 1/3 wysokości */
-        100% 0%       /* prawy górny */
+        50% 0%,
+        0% 100%,
+        100% 100%,
+        100% 0%
     );
 }
 
@@ -240,10 +194,10 @@ html,body {
     height: 130px;
     width: 90px;
     clip-path: polygon(
-        50% 0%,        /* lewy górny */
-        0% 100%,      /* lewy dolny */
-        100% 100%,     /* prawy dolny = 1/3 wysokości */
-        100% 0%       /* prawy górny */
+        50% 0%,
+        0% 100%,
+        100% 100%,
+        100% 0%
     );
     transform: scaleY(-1);
 }
@@ -272,7 +226,7 @@ html,body {
     transform-origin: bottom center;
 }
 
-/* Ustawienie kątów 5 śmigieł równomiernie co 72° (360/5) */
+/* Ustawienie kątów 5 śmigieł równomiernie co (360/5)deg */
 .blad:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg); }
 .blad:nth-child(2) { transform: translate(-50%, -100%) rotate(72deg); }
 .blad:nth-child(3) { transform: translate(-50%, -100%) rotate(144deg); }

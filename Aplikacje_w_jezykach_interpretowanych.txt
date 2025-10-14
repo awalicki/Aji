@@ -1,0 +1,14 @@
+można przyjść do innej grupy
+z każdym terminem ocena w dół
+
+codex ,
+universal googlowy
+
+express - do backendu
+view - do frontendu, najłatwiejszy, może  być react
+
+dowolne narzędzia, może być jetbrains webstorm
+
+zrobić repo
+
+kolos z wykładu 

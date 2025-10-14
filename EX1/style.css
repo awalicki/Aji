@@ -41,11 +41,11 @@ html,body {
     position: absolute;
     top: 202px;
     left: 55px;
-    /* Wygenerował chat*/
     width:40px;
     height:90px;
     border-radius:70%;
-      /* conic-gradient tworzy "wycinek" koła */
+    /* Wygenerował chat*/
+    /* conic-gradient tworzy "wycinek" koła */
     background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
 
     mask-image: radial-gradient(
@@ -62,11 +62,11 @@ html,body {
     position: absolute;
     top: 202px;
     left: 339px;
-    /* Wygenerował chat*/
     width:40px;
     height:90px;
     border-radius:70%;
-      /* conic-gradient tworzy "wycinek" koła */
+    /* Wygenerował chat*/
+    /* conic-gradient tworzy "wycinek" koła */
     background: conic-gradient(black 0deg 90deg, transparent 90deg 360deg);
 
     mask-image: radial-gradient(
@@ -202,6 +202,7 @@ html,body {
     rotate: 10deg;
     border-radius: 20%;
 
+    /* Wygenerował chat*/
     /* clip-path trapez, który zwęża się w prawo */
     clip-path: polygon(
         0% 0%,        /* lewy górny */
@@ -263,8 +264,8 @@ html,body {
 
 .blad {
     position: absolute;
-    width: 8px;       /* szerokość śmigła */
-    height: 35px;     /* długość śmigła */
+    width: 8px;
+    height: 35px; 
     background-color: black;
     top: 50%;
     left: 50%;

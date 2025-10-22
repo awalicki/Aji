@@ -35,7 +35,6 @@ let loadInitialTodos = function () {
     req.open("GET", binUrl, true);
     req.setRequestHeader("X-Master-Key", X_Master_Key);
     req.send();
-    todoList.push(req.responseText);
 }
 
 let updateJSONbin = function () {
@@ -45,6 +44,7 @@ let updateJSONbin = function () {
     } else{
         payLoad = {record: todoList};
     }
+
     req.open("PUT", binUrl, true);
     req.setRequestHeader("Content-Type", "application/json");
     req.setRequestHeader("X-Master-Key", X_Master_Key);
@@ -58,41 +58,60 @@ let deleteTodo = function (index) {
     updateJSONbin();
 }
 
-
+// TODO DO ZMIANY
 let updateTodoList = function () {
-    let todoListDiv = document.getElementById("todoListView");
-
-    //remove all elements
-    while (todoListDiv.firstChild) {
-        todoListDiv.removeChild(todoListDiv.firstChild);
-    }
-
-    //add all elements
+    let todoTableBody = document.querySelector("#todoTable tbody");
     let filterInput = document.getElementById("inputSearch");
 
+    // remove all elements
+   todoTableBody.innerHTML = "";
+
+    //add all elements
     for (let index in todoList) {
         const todo = todoList[index];
         // Defensively check if todo_ is a valid object with a title
         if (todo && typeof todo.title !== 'undefined') {
             if ((filterInput.value == "") || (todo.title.includes(filterInput.value)) || (todo.description && todo.description.includes(filterInput.value))) {
                 // add the todoList
-                let newElement = document.createElement("div");
-                let newContent = document.createTextNode(
-                    todo.title + " " + (todo.description || ""));
-                newElement.appendChild(newContent);
-                todoListDiv.appendChild(newElement);
+                let row = document.createElement("tr");
+                let titleCell = document.createElement('td');
+                titleCell.textContent = todo.title;
+
+                let descriptionCell = document.createElement('td');
+                descriptionCell.textContent = todo.description;
+
+                let placeCell = document.createElement('td');
+                placeCell.textContent = todo.place;
+
+                let categoryCell = document.createElement('td');
+                categoryCell.textContent = todo.category;
+
+                let dueDateCell = document.createElement('td');
+                // dueDateCell.textContent = todo.dueDate;
+                dueDateCell.textContent = todo.dueDate ? new Date(todo.dueDate).toLocaleDateString() : "";
 
 
-                let newDeleteButton = document.createElement("input");
-                newDeleteButton.type = "button";
-                newDeleteButton.value = "x";
-                newDeleteButton.addEventListener("click",
+                let deleteCell = document.createElement('td');
+                let deleteButton = document.createElement("button");
+                deleteButton.className = "btn btn-danger btn-sm"
+                deleteButton.textContent = "x";
+                deleteButton.addEventListener("click",
                     function () {
                         deleteTodo(index);
                     }
                 );
+                deleteCell.appendChild(deleteButton);
 
-                newElement.appendChild(newDeleteButton);
+                // add all cells to row
+                row.appendChild(titleCell);
+                row.appendChild(descriptionCell);
+                row.appendChild(placeCell);
+                row.appendChild(categoryCell);
+                row.appendChild(dueDateCell);
+                row.appendChild(deleteCell);
+
+                // add row to <tbody>
+                todoTableBody.appendChild(row);
             }
         }
     }
@@ -120,7 +139,13 @@ let addTodo = function () {
     //add item to the list
     todoList.push(newTodo);
     updateJSONbin();
+    updateTodoList();
 }
 
-loadInitialTodos();
-setInterval(updateTodoList, 500);
+document.addEventListener("DOMContentLoaded", function () {
+    loadInitialTodos();
+    const filterInput = document.getElementById("inputSearch");
+    if(filterInput) {
+        filterInput.addEventListener("input", updateTodoList);
+    }
+});

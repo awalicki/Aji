@@ -39,9 +39,9 @@ let loadInitialTodos = function () {
 
 let updateJSONbin = function () {
     let payLoad;
-    if (todoList.length > 0){
+    if (todoList.length > 0) {
         payLoad = todoList;
-    } else{
+    } else {
         payLoad = {record: todoList};
     }
 
@@ -58,63 +58,101 @@ let deleteTodo = function (index) {
     updateJSONbin();
 }
 
-// TODO DO ZMIANY
 let updateTodoList = function () {
     let todoTableBody = document.querySelector("#todoTable tbody");
     let filterInput = document.getElementById("inputSearch");
+    const startDateVal = document.getElementById("inputSearchDateStart").value;
+    const endDateVal = document.getElementById("inputSearchDateEnd").value;
+
+    // new Date("") zwraca Invalid Date, więc sprawdzamy, czy wartość istnieje (nie jest pusta)
+    const dateStart = startDateVal ? new Date(startDateVal) : null;
+    const dateEnd = endDateVal ? new Date(endDateVal) : null;
+
+    if (dateStart) {
+        dateStart.setHours(0, 0, 0, 0); // Ustaw na 00:00:00 danego dnia
+    }
+    if (dateEnd) {
+        dateEnd.setHours(23, 59, 59, 999); // Ustaw na 23:59:59 danego dnia
+    }
 
     // remove all elements
-   todoTableBody.innerHTML = "";
+    todoTableBody.innerHTML = "";
 
     //add all elements
-    for (let index in todoList) {
-        const todo = todoList[index];
-        // Defensively check if todo_ is a valid object with a title
-        if (todo && typeof todo.title !== 'undefined') {
-            if ((filterInput.value == "") || (todo.title.includes(filterInput.value)) || (todo.description && todo.description.includes(filterInput.value))) {
-                // add the todoList
-                let row = document.createElement("tr");
-                let titleCell = document.createElement('td');
-                titleCell.textContent = todo.title;
-
-                let descriptionCell = document.createElement('td');
-                descriptionCell.textContent = todo.description;
-
-                let placeCell = document.createElement('td');
-                placeCell.textContent = todo.place;
-
-                let categoryCell = document.createElement('td');
-                categoryCell.textContent = todo.category;
-
-                let dueDateCell = document.createElement('td');
-                // dueDateCell.textContent = todo.dueDate;
-                dueDateCell.textContent = todo.dueDate ? new Date(todo.dueDate).toLocaleDateString() : "";
-
-
-                let deleteCell = document.createElement('td');
-                let deleteButton = document.createElement("button");
-                deleteButton.className = "btn btn-danger btn-sm"
-                deleteButton.textContent = "x";
-                deleteButton.addEventListener("click",
-                    function () {
-                        deleteTodo(index);
-                    }
-                );
-                deleteCell.appendChild(deleteButton);
-
-                // add all cells to row
-                row.appendChild(titleCell);
-                row.appendChild(descriptionCell);
-                row.appendChild(placeCell);
-                row.appendChild(categoryCell);
-                row.appendChild(dueDateCell);
-                row.appendChild(deleteCell);
-
-                // add row to <tbody>
-                todoTableBody.appendChild(row);
-            }
+    todoList.forEach((todo, index) => {
+        if (!todo || typeof todo.title === "undefined") {
+            return;
         }
-    }
+
+        // --- Filtr 1: Sprawdzenie tekstu ---
+        let filterText = filterInput.value;
+        const textMatch = (filterText === "") ||
+            (todo.title && todo.title.toLowerCase().includes(filterText)) ||
+            (todo.description && todo.description.toLowerCase().includes(filterText));
+
+        // --- Filtr 2: Sprawdzenie daty ---
+        const todoDate = todo.dueDate ? new Date(todo.dueDate) : null;
+        let dateMatch = false; // Domyślnie zakładamy, że nie pasuje
+
+        const hasDateFilter = dateStart || dateEnd; // Czy jakikolwiek filtr daty jest aktywny?
+
+        if (!hasDateFilter) {
+            // Jeśli nie ma filtrów daty, element "pasuje" pod względem daty
+            dateMatch = true;
+        } else if (todoDate && !isNaN(todoDate.getTime())) {
+            // Jeśli filtry daty są aktywne I element ma poprawną datę
+            const afterStart = !dateStart || todoDate >= dateStart; // Pasuje, jeśli nie ma daty początkowej LUB todoDate jest po niej
+            const beforeEnd = !dateEnd || todoDate <= dateEnd;   // Pasuje, jeśli nie ma daty końcowej LUB todoDate jest przed nią
+            dateMatch = afterStart && beforeEnd;
+        }
+        // Jeśli filtry daty są aktywne, ale element nie ma daty (todoDate = null), dateMatch pozostaje false
+
+        // Render row only if both text and date match
+        if (textMatch && dateMatch) {
+            // add the todoList
+            let row = document.createElement("tr");
+            let titleCell = document.createElement('td');
+            titleCell.textContent = todo.title;
+
+            let descriptionCell = document.createElement('td');
+            descriptionCell.textContent = todo.description;
+
+            let placeCell = document.createElement('td');
+            placeCell.textContent = todo.place;
+
+            let categoryCell = document.createElement('td');
+            categoryCell.textContent = todo.category;
+
+            let dueDateCell = document.createElement('td');
+            // dueDateCell.textContent = todo.dueDate;
+            // dueDateCell.textContent = todo.dueDate ? new Date(todo.dueDate).toLocaleDateString() : "";
+            dueDateCell.textContent = todoDate ? todoDate.toLocaleDateString() : "";
+
+            let deleteCell = document.createElement('td');
+            let deleteButton = document.createElement("button");
+            deleteButton.className = "btn btn-danger btn-sm"
+            deleteButton.textContent = "x";
+            deleteButton.addEventListener("click",
+                function () {
+                    deleteTodo(index);
+                }
+            );
+            deleteCell.appendChild(deleteButton);
+
+            // add all cells to row
+            row.appendChild(titleCell);
+            row.appendChild(descriptionCell);
+            row.appendChild(placeCell);
+            row.appendChild(categoryCell);
+            row.appendChild(dueDateCell);
+            row.appendChild(deleteCell);
+
+            // add row to <tbody>
+            todoTableBody.appendChild(row);
+        }
+
+
+    })
 }
 
 let addTodo = function () {
@@ -145,7 +183,18 @@ let addTodo = function () {
 document.addEventListener("DOMContentLoaded", function () {
     loadInitialTodos();
     const filterInput = document.getElementById("inputSearch");
-    if(filterInput) {
+    if (filterInput) {
         filterInput.addEventListener("input", updateTodoList);
     }
+
+    const inputSearchDateStart = document.getElementById("inputSearchDateStart");
+    if (inputSearchDateStart) {
+        inputSearchDateStart.addEventListener("change", updateTodoList);
+    }
+
+    const inputSearchDateEnd = document.getElementById("inputSearchDateEnd");
+    if (inputSearchDateEnd) {
+        inputSearchDateEnd.addEventListener("change", updateTodoList);
+    }
+
 });

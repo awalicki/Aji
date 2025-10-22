@@ -28,9 +28,21 @@
             </table>
         </div>
         <div>
-            <label>Search</label>
-            <input type="text" id="inputSearch" placeholder="Type Your search here..."/>
+            <form>
+                <label>Search</label>
+                <input type="text" id="inputSearch" placeholder="Type Your search here..."/>
+                <label>Search for time period</label>
+                <div>
+                    <label>Starting date</label>
+                    <input type="date" id="inputSearchDateStart"/>
+                </div>
+                <div>
+                    <label>Ending date</label>
+                    <input type="date" id="inputSearchDateEnd"/>
+                </div>
+            </form>
         </div>
+
         <form>
             <label>Title</label>
             <input type="text" id="inputTitle"/>
@@ -42,6 +54,7 @@
             <input type="date" id="inputDate"/>
             <input type="button" value="add" onclick="addTodo()"/>
         </form>
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
                 integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
                 crossorigin="anonymous"></script>

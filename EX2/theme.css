@@ -1,0 +1,10 @@
+#inputDescription{
+    height: 100px;
+    min-height: 50px;
+    max-height: 300px;
+}
+
+tbody tr:hover {
+    background-color: lightgray;
+    transition: background-color 0.5s;
+}

@@ -117,9 +117,11 @@ let updateTodoList = function () {
             let row = document.createElement("tr");
             let titleCell = document.createElement('td');
             titleCell.textContent = todo.title;
+            titleCell.className = "font-weight-bold";
 
             let descriptionCell = document.createElement('td');
             descriptionCell.textContent = todo.description;
+            descriptionCell.className = "text-break";
 
             let placeCell = document.createElement('td');
             placeCell.textContent = todo.place;
@@ -129,11 +131,13 @@ let updateTodoList = function () {
 
             let dueDateCell = document.createElement('td');
             dueDateCell.textContent = todoDate ? todoDate.toLocaleDateString() : "";
+            dueDateCell.className = "text-nowrap";
 
             let deleteCell = document.createElement('td');
+            deleteCell.className = "text-center";
             let deleteButton = document.createElement("button");
-            deleteButton.className = "btn btn-danger btn-sm"
-            deleteButton.textContent = "x";
+            deleteButton.className = "btn btn-danger"
+            deleteButton.textContent = "X";
             deleteButton.addEventListener("click",
                 function () {
                     deleteTodo(index);

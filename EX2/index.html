@@ -8,65 +8,111 @@
     <title>MyTODO App</title>
 </head>
 <body>
-    <div class="container">
-        <h1>MyNotes</h1>
-        <div id="todoListView" class="table-responsive-sm">
-            <table id="todoTable" class="table table-striped table-hover align-middle">
-                <caption>Todo List</caption>
-                <thead>
-                <tr class="table-info">
+<div class="container">
+    <h1 class="display-1 text-center my-4">My Notes</h1>
+
+    <div class="row justify-content-md-center mb-4">
+
+        <!--  Karta z dodawaniem elementu to do  -->
+        <div class="col-md-6 mb-3 mb-md-0" id="addDiv">
+            <div class="card h-100">
+                <div class="card-body">
+                    <form>
+                        <h2 class="card-title text-center mb-4">Add Note</h2>
+
+                        <div class="form-group">
+                            <label for="inputTitle">Title</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Title" id="inputTitle"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputDescription">Description</label>
+                            <textarea class="form-control" placeholder="Leave description here" id="inputDescription"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="inputPlace">Place</label>
+                                    <input type="text" class="form-control" id="inputPlace"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="inputDate">Due date</label>
+                                    <input type="date" class="form-control" id="inputDate"/>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-block mt-3" onclick="addTodo()">Add new element</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--  Karta z filtrowaniem  -->
+        <div class="col-md-6" id="searchDiv">
+            <div class="card h-100">
+                <div class="card-body">
+                    <form>
+                        <h2 class="card-title text-center mb-4">Filter notes</h2>
+
+                        <div class="form-group">
+                            <label for="inputSearch">Search</label>
+                            <input type="text" class="form-control" id="inputSearch" placeholder="Type Your search here..."/>
+                        </div>
+
+                        <p class="font-weight-bold text-center mt-4">Search for time period</p>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="inputSearchDateStart">Starting date</label>
+                                    <input type="date" class="form-control" id="inputSearchDateStart"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="inputSearchDateEnd">Ending date</label>
+                                    <input type="date" class="form-control" id="inputSearchDateEnd"/>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block mt-3" onclick="clearDateSearch()">Clear</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="todoListView" class="table-responsive-sm mt-4">
+
+        <table id="todoTable" class="table align-middle">
+            <caption>Todo List</caption>
+            <thead class="table-dark">
+                <tr>
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
                     <th scope="col">Place</th>
                     <th scope="col">Category</th>
                     <th scope="col">Due date</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col" class="text-center">Delete</th>
                 </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <form>
-                <label>Search</label>
-                <input type="text" id="inputSearch" placeholder="Type Your search here..."/>
-                <label>Search for time period</label>
-                <div>
-                    <label>Starting date</label>
-                    <input type="date" id="inputSearchDateStart"/>
-                </div>
-                <div>
-                    <label>Ending date</label>
-                    <input type="date" id="inputSearchDateEnd"/>
-                </div>
-                <input type="button" value="Clear" onclick="clearDateSearch()"/>
-            </form>
-        </div>
-
-        <form>
-            <label>Title</label>
-            <input type="text" id="inputTitle"/>
-            <label>Description</label>
-            <input type="text" id="inputDescription"/>
-            <label>Place</label>
-            <input type="text" id="inputPlace"/>
-            <label>Due date</label>
-            <input type="date" id="inputDate"/>
-            <input type="button" value="add" onclick="addTodo()"/>
-        </form>
-
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-                crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-                crossorigin="anonymous"></script>
+            </thead>
+            <tbody>
+                <!-- Tu są generowane komórki po dodaniu zadania -->
+            </tbody>
+        </table>
     </div>
+
+</div> <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+               integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+               crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
-
-
 </html>

@@ -1,4 +1,8 @@
 'use strict'
+
+let groq_api_key = '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'
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
 let todoList = [];
 const X_Master_Key = "$2a$10$S4Sy/ZZbAm7MnEbloeT0..e8Uz/SJlrCtLkHY.rzfh1/WnurOX0mu";
 const binUrl = "https://api.jsonbin.io/v3/b/68f90905ae596e708f246a1c";
@@ -85,7 +89,7 @@ let updateTodoList = function () {
         }
 
         // --- Filtr 1: Sprawdzenie tekstu ---
-        let filterText = filterInput.value;
+        let filterText = filterInput.value.toLowerCase();
         const textMatch = (filterText === "") ||
             (todo.title && todo.title.toLowerCase().includes(filterText)) ||
             (todo.description && todo.description.toLowerCase().includes(filterText));
@@ -124,8 +128,6 @@ let updateTodoList = function () {
             categoryCell.textContent = todo.category;
 
             let dueDateCell = document.createElement('td');
-            // dueDateCell.textContent = todo.dueDate;
-            // dueDateCell.textContent = todo.dueDate ? new Date(todo.dueDate).toLocaleDateString() : "";
             dueDateCell.textContent = todoDate ? todoDate.toLocaleDateString() : "";
 
             let deleteCell = document.createElement('td');
@@ -155,7 +157,7 @@ let updateTodoList = function () {
     })
 }
 
-let addTodo = function () {
+let addTodo = async function () {
     //get the elements in the form
     let inputTitle = document.getElementById("inputTitle");
     let inputDescription = document.getElementById("inputDescription");
@@ -166,12 +168,14 @@ let addTodo = function () {
     let newDescription = inputDescription.value;
     let newPlace = inputPlace.value;
     let newDate = new Date(inputDate.value);
+    let category = await getCategory(newTitle, newDescription);
+
     //create new item
     let newTodo = {
         title: newTitle,
         description: newDescription,
         place: newPlace,
-        category: '',
+        category: category,
         dueDate: newDate
     };
     //add item to the list
@@ -179,6 +183,85 @@ let addTodo = function () {
     updateJSONbin();
     updateTodoList();
 }
+
+let clearDateSearch = function () {
+    const filterInputEl = document.getElementById("inputSearch");
+    const startDateEl = document.getElementById("inputSearchDateStart");
+    const endDateEl = document.getElementById("inputSearchDateEnd");
+
+    filterInputEl.value = "";
+    startDateEl.value = "";
+    endDateEl.value = "";
+    updateTodoList();
+}
+
+let getCategory = async function (title, description) {
+    const ALLOWED_CATEGORIES = [
+        "Praca", "Dom", "Zakupy", "Zdrowie i Fitness", "Finanse",
+        "Rozwój osobisty", "Sprawy do załatwienia", "Rodzina i znajomi",
+        "Hobby i relaks", "Inne"
+    ];
+
+    const systemPrompt = `Jesteś asystentem AI, który pomaga kategoryzować zadania. 
+    Twoim zadaniem jest przypisać zadanie do jednej z podanych kategorii.
+    Zwróć tylko i wyłącznie nazwę jednej kategorii, która najlepiej pasuje.
+    Dostępne kategorie: ${ALLOWED_CATEGORIES.join(', ')}.
+    Nie dodawaj żadnych wyjaśnień, wstępów ani zdań. Tylko nazwa kategorii.`;
+
+    const userPrompt = `Tytuł zadania: ${title} \n Opis zadania: ${description}`;
+
+    const requestBody = {
+        model: "llama-3.1-8b-instant",
+        messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt }
+        ],
+        temperature: 0.1,
+        max_tokens: 20
+    };
+
+    try{
+
+        const response = await fetch(GROQ_API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${groq_api_key}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+            // Jeśli serwer odpowiedział błędem (np. zły klucz API)
+            const errorDetails = await response.json(); // lub .text() jeśli to nie JSON
+            console.error("Szczegóły błędu od Groq:", errorDetails);
+        }
+
+        const data = await response.json();
+
+        // 6. Wyodrębnij kategorię z odpowiedzi
+        let category = data.choices[0]?.message?.content;
+        if (!category) {
+            console.warn("Groq nie zwrócił treści, używam kategorii 'Inne'.");
+            return "Inne";
+        }
+
+        category = category.trim();
+
+        if (ALLOWED_CATEGORIES.includes(category)) {
+            return category;
+        } else {
+            console.warn(`Groq zwrócił nieoczekiwaną kategorię: "${category}". Używam "Inne".`);
+            return "Inne";
+        }
+
+    } catch (error) {
+        console.error("Błąd podczas wywołania API Groq:", error);
+        // W razie błędu API, zwróć bezpieczną, domyślną kategorię
+        return "Inne";
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
     loadInitialTodos();

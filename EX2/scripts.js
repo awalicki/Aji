@@ -73,13 +73,12 @@ let updateTodoList = function () {
     const dateEnd = endDateVal ? new Date(endDateVal) : null;
 
     if (dateStart) {
-        dateStart.setHours(0, 0, 0, 0); // Ustaw na 00:00:00 danego dnia
+        dateStart.setHours(0, 0, 0, 0);
     }
     if (dateEnd) {
-        dateEnd.setHours(23, 59, 59, 999); // Ustaw na 23:59:59 danego dnia
+        dateEnd.setHours(23, 59, 59, 999);
     }
 
-    // remove all elements
     todoTableBody.innerHTML = "";
 
     //add all elements
@@ -96,20 +95,18 @@ let updateTodoList = function () {
 
         // --- Filtr 2: Sprawdzenie daty ---
         const todoDate = todo.dueDate ? new Date(todo.dueDate) : null;
-        let dateMatch = false; // Domyślnie zakładamy, że nie pasuje
+        let dateMatch = false;
 
-        const hasDateFilter = dateStart || dateEnd; // Czy jakikolwiek filtr daty jest aktywny?
+        const hasDateFilter = dateStart || dateEnd;
 
         if (!hasDateFilter) {
-            // Jeśli nie ma filtrów daty, element "pasuje" pod względem daty
             dateMatch = true;
         } else if (todoDate && !isNaN(todoDate.getTime())) {
             // Jeśli filtry daty są aktywne I element ma poprawną datę
-            const afterStart = !dateStart || todoDate >= dateStart; // Pasuje, jeśli nie ma daty początkowej LUB todoDate jest po niej
-            const beforeEnd = !dateEnd || todoDate <= dateEnd;   // Pasuje, jeśli nie ma daty końcowej LUB todoDate jest przed nią
+            const afterStart = !dateStart || todoDate >= dateStart;
+            const beforeEnd = !dateEnd || todoDate <= dateEnd;
             dateMatch = afterStart && beforeEnd;
         }
-        // Jeśli filtry daty są aktywne, ale element nie ma daty (todoDate = null), dateMatch pozostaje false
 
         // Render row only if both text and date match
         if (textMatch && dateMatch) {
@@ -145,7 +142,6 @@ let updateTodoList = function () {
             );
             deleteCell.appendChild(deleteButton);
 
-            // add all cells to row
             row.appendChild(titleCell);
             row.appendChild(descriptionCell);
             row.appendChild(placeCell);
@@ -153,11 +149,8 @@ let updateTodoList = function () {
             row.appendChild(dueDateCell);
             row.appendChild(deleteCell);
 
-            // add row to <tbody>
             todoTableBody.appendChild(row);
         }
-
-
     })
 }
 
@@ -236,8 +229,8 @@ let getCategory = async function (title, description) {
         });
 
         if (!response.ok) {
-            // Jeśli serwer odpowiedział błędem (np. zły klucz API)
-            const errorDetails = await response.json(); // lub .text() jeśli to nie JSON
+            // Jeśli serwer odpowiedział błędem
+            const errorDetails = await response.json();
             console.error("Szczegóły błędu od Groq:", errorDetails);
         }
 
